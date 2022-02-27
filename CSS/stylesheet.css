@@ -1,9 +1,23 @@
+body {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+}
 .container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   width: 480px;
   height: 480px;
   border: black 1px solid;
+}
+
+.clear {
+    border-radius: 5px;
 }
 
 .divGrid {

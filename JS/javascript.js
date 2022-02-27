@@ -16,57 +16,61 @@ const container = document.querySelector(".container");
 //creates a 16x16 grid
 
 function createGrid(a) {
-    const dimensionOfDivs = 480 / a;
-    
-    for (i = 0; i < a ** 2; i++) {
-        const div = document.createElement("div");
+  const dimensionOfDivs = 480 / a;
+  removeChildren(container);
 
-        div.style.height = `${dimensionOfDivs}px`
-        div.style.width = `${dimensionOfDivs}px`
+  for (i = 0; i < a ** 2; i++) {
+    const div = document.createElement("div");
 
-        div.classList.add('divGrid');
+    div.style.height = `${dimensionOfDivs}px`;
+    div.style.width = `${dimensionOfDivs}px`;
 
-        div.classList.add('hover')
-        container.appendChild(div);
-    }
+    div.classList.add("divGrid");
 
+    div.classList.add("hover");
+    container.appendChild(div);
+  }
+    const divs = document.querySelectorAll(".hover");
+
+    divs.forEach((div) => {
+      div.addEventListener("mouseover", (e) => {
+        e.target.classList.add("hovered");
+      });
+    });
 }
 
 createGrid(16);
 
-const divs = document.querySelectorAll('.hover');
-
-divs.forEach(div => {
-    div.addEventListener('mouseover', (e) => {
-        e.target.classList.add('hovered')
-    })
-})
-
 //add a button that clears + asks for input
 
-const btn = document.createElement("button")
-btn.textContent = "Clear"
+const btn = document.createElement("button");
+btn.textContent = "Clear";
+btn.classList.add("clear");
 
+document.querySelector("#btn-holder").appendChild(btn);
 
-document.querySelector('#btn-holder').appendChild(btn)
+btn.addEventListener("click", clear); //learned that you don't need () when calling function as argument
+btn.addEventListener("click", promptGrid);
 
 function clear() {
-    const hovered = document.querySelectorAll('.hovered');
-    console.log(hovered)
-    console.log('pps')
+  const squares = document.querySelectorAll(".hover");
+  squares.forEach((square) => {
+    square.classList.remove("hovered");
+  });
 }
 
-btn.addEventListener('click', clear())
+function promptGrid() {
+  let a = prompt();
+  a = Number(a);
+  if (a > 100) {
+    alert("too high. 100 is max");
+    return;
+  }
+  createGrid(a);
+}
 
-
-
-/*testing to see if I can change classes with a variable
-const test = document.createElement('p')
-
-test.textContent = "hello squirrel";
-
-n=4
-
-test.classList.add('hovered'+`${n}`)
-
-container.appendChild(test) */
+function removeChildren(parent) {
+  while (parent.firstElementChild) {
+    parent.removeChild(parent.firstElementChild);
+  }
+}
