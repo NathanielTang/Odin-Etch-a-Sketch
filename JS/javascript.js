@@ -60,11 +60,15 @@ function clear() {
 }
 
 function promptGrid() {
-  let a = prompt();
+  let a = prompt("Enter grid size");
   a = Number(a);
   if (a > 100) {
-    alert("too high. 100 is max");
-    return;
+    alert("100x100 is maximum grid size");
+    a = 100;
+  }
+  if (isNaN(a)) {
+      alert ('Please enter a number')
+      a = 16
   }
   createGrid(a);
 }
